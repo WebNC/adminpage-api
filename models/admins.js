@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
-const key = require("../config/index")
+
 
 var Schema = mongoose.Schema;
 
@@ -12,12 +12,9 @@ var UserSchema = new Schema({
     age:{type:Number},
     sex:{type:String},
     address:{type:String},
-    degree:{type:String},
     phone:{type:Number},
     url:{type:String},
     passwordHash:{type:String,require:true},
-    googleId:{type:String},
-    facebookId:{type:String}
 });
 
 UserSchema.methods.setPassword = function (password) {
@@ -37,7 +34,7 @@ UserSchema.methods.generateJWT = function () {
         email: this.email,
         id: this._id,
         exp: parseInt(expirationDate.getTime() / 1000, 10),
-    },key.JWT_KEY);
+    },process.env.JWT_KEY);
 }
 
 UserSchema.methods.toAuthJSON = function () {

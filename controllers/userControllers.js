@@ -22,7 +22,6 @@ exports.register = (req, res,next) => {
                     age: req.body.age,
                     sex:req.body.sex,
                     address:req.body.address,
-                    degree:req.body.degree,
                     phone:req.body.phone,
                 })
                 user.setPassword(req.body.password)
@@ -66,65 +65,6 @@ exports.login = (req, res, next) => {
         })
     })(req, res, next);
 }
-// exports.loginFacebook = (req, res, next) =>{
-//     passport.authenticate('facebook-token', { session: false }, (err, passportUser) => {
-//         if (err) {
-//             return next(err);
-//         }
-//         if (passportUser) {
-//             User.findOne({facebookId:passportUser.id})
-//                 .then(user=>{
-//                     if(!user){
-//                         user = new User({
-//                             username: passportUser.displayName,
-//                             email: passportUser.emails[0].value,
-//                             facebookId: passportUser.id
-//                         })
-//                     }else{
-//                         user.username = passportUser.displayName;
-//                         user.email = passportUser.emails[0].value;
-//                     }
-//                     user.save()
-//                     return res.json({ user: user.toAuthJSON() });
-//                 })
-//         }else{
-//             return res.status(400).send({
-//                 message: "Some thing went wrong."
-//             })
-//         }
-//     })(req, res, next);
-// }
-// exports.loginGoogle = (req, res, next) =>{
-//     passport.authenticate('google-token', { session: false }, (err, passportUser) => {
-//         if (err) {
-//             return next(err);
-//         }
-//         if (passportUser) {
-//             User.findOne({googleId:passportUser.id})
-//                 .then(user=>{
-//                     if(!user){
-//                         user = new User({
-//                             username: passportUser.displayName,
-//                             email: passportUser.emails[0].value,
-//                             googleId: passportUser.id
-//                         })
-//                     }else{
-//                         user.username = passportUser.displayName;
-//                         user.email = passportUser.emails[0].value;
-//                     }
-//                     user.save()
-//                     return res.json({ user: user.toAuthJSON() });
-//                 })
-//         }else{
-//             return res.status(400).send({
-//                 message: "Some thing went wrong."
-//             })
-//         }
-//     })(req, res, next);
-// }
-
-
-
 exports.me = (req, res) => {
     const { id } = req.payload;
     return User.findById(id)

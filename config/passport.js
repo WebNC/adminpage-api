@@ -1,24 +1,6 @@
 const passport    = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-// const FacebookTokenStrategy = require('passport-facebook-token')
 var User = require("../models/admins")
-// var GoogleTokenStrategy = require('passport-google-token').Strategy;
-const Key = require('./index')
-// passport.use(new FacebookTokenStrategy({
-//   clientID: Key.FACEBOOK_APP_ID,
-//   clientSecret: Key.FACEBOOK_APP_SECRET
-// }, function(accessToken, refreshToken, profile, done) {
-//   return done(null,profile)
-// }
-// ));
-// passport.use(new GoogleTokenStrategy({
-//   clientID: Key.GOOGLE_CLIENT_ID,
-//   clientSecret: Key.GOOGLE_CLIENT_SECRET
-// },
-// function(accessToken, refreshToken, profile, done) {
-//   return done(null,profile)
-// }
-// ));
 
 passport.use(new LocalStrategy({
         usernameField: 'email',
