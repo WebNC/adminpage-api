@@ -1,12 +1,13 @@
-const passport    = require('passport');
+/* eslint-disable indent */
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-var User = require("../models/admins")
+const User = require('../models/admins');
 
 passport.use(new LocalStrategy({
         usernameField: 'email',
-        passwordField: 'password'
+        passwordField: 'password',
     },
-    function (email, password, done) {
+    (email, password, done) => {
       User.findOne({ email })
       .then((user) => {
           if (!user || !user.validatePassword(password)) {
@@ -14,5 +15,4 @@ passport.use(new LocalStrategy({
           }
           return done(null, user);
       }).catch(done);
-    }
-));
+    }));
