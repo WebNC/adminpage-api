@@ -24,6 +24,7 @@ exports.register = (req, res) => {
                     sex: req.body.sex,
                     address: req.body.address,
                     phone: req.body.phone,
+                    role: 'admin',
                 });
                 newUser.setPassword(req.body.password);
                 newUser.save()

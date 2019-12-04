@@ -15,19 +15,21 @@ const UserSchema = new Schema({
     age: { type: Number },
     sex: { type: String },
     address: { type: String },
+    role: { type: String },
     phone: { type: Number },
     url: { type: String },
     passwordHash: { type: String, require: true },
 });
 
-UserSchema.methods.setPassword = (password) => {
+UserSchema.methods.setPassword = function (password) {
     this.passwordHash = bcrypt.hashSync(password, saltRounds);
 };
 
-UserSchema.methods.validatePassword = (password) => bcrypt.compareSync(password, this.passwordHash);
+UserSchema.methods.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.passwordHash);
+};
 
-
-UserSchema.methods.generateJWT = () => {
+UserSchema.methods.generateJWT = function () {
     const today = new Date();
     const expirationDate = new Date(today);
     expirationDate.setDate(today.getDate() + 60);
@@ -36,9 +38,15 @@ UserSchema.methods.generateJWT = () => {
         email: this.email,
         id: this._id,
         exp: parseInt(expirationDate.getTime() / 1000, 10),
-    }, process.env.JWT_KEY);
-};
+    },key.JWT_KEY);
+}
 
-UserSchema.methods.toAuthJSON = () => ({ username: this.username, token: this.generateJWT() });
+UserSchema.methods.toAuthJSON = function () {
+    return {
+        username: this.username,
+        role: this.role,
+        token: this.generateJWT(),
+    };
+};
 
 module.exports = mongoose.model('Admin', UserSchema);
