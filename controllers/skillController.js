@@ -20,13 +20,21 @@ exports.getSkill = async (req, res) => {
 };
 exports.createSkill = async (req, res) => {
   const { value } = req.body;
-  const skill = new Skill({
-    name: value,
-  });
-  await skill.save();
-  return res.status(200).send({
-    message: 'Done',
-  });
+  const result = await Skill.findOne({ name: value });
+  if (result) {
+    res.status(400).send({
+      message: 'Skill đã tồn tại',
+    });
+  } else {
+    const skill = new Skill({
+      name: value,
+    });
+    await skill.save();
+    res.status(200).send({
+      message: 'Done',
+    });
+  }
+  return res;
 };
 exports.updateSkill = async (req, res) => {
   const { id, value } = req.body;
