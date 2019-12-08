@@ -15,6 +15,7 @@ router.get('/user-list/student/number', accountController.getNumberUserStudent);
 
 router.get('/user-detail/:id', accountController.getUserDetail);
 router.get('/user/block/:id', accountController.blockUser);
+router.get('/user/unblock/:id', accountController.unblockUser);
 
 router.get('/skill-list/read', skillController.getSkill);
 router.post('/skill-list/create', skillController.createSkill);

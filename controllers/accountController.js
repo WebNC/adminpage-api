@@ -56,3 +56,19 @@ exports.blockUser = async (req, res) => {
   }
   return res;
 };
+
+exports.unblockUser = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.isBlocked = false;
+    await user.save();
+    res.status(200).send({
+      message: 'DOne',
+    });
+  } else {
+    res.status(500).send({
+      message: "Can't find user",
+    });
+  }
+  return res;
+};
