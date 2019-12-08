@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable indent */
 /* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
@@ -38,8 +39,8 @@ UserSchema.methods.generateJWT = function () {
         email: this.email,
         id: this._id,
         exp: parseInt(expirationDate.getTime() / 1000, 10),
-    },process.env.JWT_KEY);
-}
+    }, process.env.JWT_KEY);
+};
 
 UserSchema.methods.toAuthJSON = function () {
     return {
