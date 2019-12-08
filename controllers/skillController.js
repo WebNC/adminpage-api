@@ -10,7 +10,9 @@ exports.getSkill = async (req, res) => {
   });
   user.forEach((ele) => {
     ele.skill.forEach((element) => {
-      s[element].number += 1;
+      if (s[element]) {
+        s[element].number += 1;
+      }
     });
   });
   return res.status(200).send({
