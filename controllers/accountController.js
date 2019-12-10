@@ -11,7 +11,7 @@ exports.getAllUserTeacher = async (req, res) => {
   });
 };
 exports.getNumberUserTeacher = async (req, res) => {
-  const num = await User.count({ type: 'Người dạy' });
+  const num = await User.countDocuments({ type: 'Người dạy' });
   return res.status(200).send({
     message: num,
   });
