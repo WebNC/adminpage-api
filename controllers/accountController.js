@@ -28,7 +28,7 @@ exports.getAllUserStudent = async (req, res) => {
   });
 };
 exports.getNumberUserStudent = async (req, res) => {
-  const num = await User.count({ type: 'Người học' });
+  const num = await User.countDocuments({ type: 'Người học' });
   return res.status(200).send({
     message: num,
   });
