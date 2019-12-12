@@ -35,7 +35,7 @@ exports.createSkill = async (req, res) => {
     await skill.save();
     res.status(200).send({
       message: 'Done',
-      skill: skill,
+      value: skill,
     });
   }
   return res;
