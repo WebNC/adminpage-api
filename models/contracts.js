@@ -10,12 +10,16 @@ const ContractSchema = new Schema({
     fromDate: { type: Date },
     toDate: { type: Date },
     hour: { type: Number },
-    skill: { type: String },
+    skill: { type: Array },
     // Đang chờ, Bị từ chối, Chấp nhận
-    statusAccept: { type: Boolean },
+    status: { type: String, default: 'Đang chờ' },
     // Đã thanh toán, chưa thanh toán
-    statusPay: { type: Boolean },
+    statusPay: { type: Boolean, default: false },
+    rating: { type: Number, default: 5 },
+    // Array object {id,date,comment}
+    comment: { type: Array },
     value: { type: Number },
+    isDeleted: { type: Boolean },
 });
 
 module.exports = mongoose.model('Contract', ContractSchema);

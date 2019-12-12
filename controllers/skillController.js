@@ -20,6 +20,12 @@ exports.getSkill = async (req, res) => {
     number: s,
   });
 };
+exports.getNumberSkill = async (req, res) => {
+  const num = await Skill.countDocuments({ isDeleted: false });
+  return res.status(200).send({
+    message: num,
+  });
+};
 exports.createSkill = async (req, res) => {
   const { value } = req.body;
   const result = await Skill.findOne({ name: value });

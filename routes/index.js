@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const accountController = require('../controllers/accountController');
 const skillController = require('../controllers/skillController');
+const contractController = require('../controllers/contractController');
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', { title: 'Express' });
@@ -22,5 +23,9 @@ router.get('/skill-list/read', skillController.getSkill);
 router.post('/skill-list/create', skillController.createSkill);
 router.post('/skill-list/update', skillController.updateSkill);
 router.post('/skill-list/delete', skillController.deleteSkill);
+
+
+router.get('/contract-list/number', contractController.getNumContractList);
+router.get('/contract-list/:page', contractController.getContractList);
 
 module.exports = router;
