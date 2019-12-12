@@ -20,6 +20,7 @@ exports.getSkill = async (req, res) => {
     number: s,
   });
 };
+
 exports.createSkill = async (req, res) => {
   const { value } = req.body;
   const result = await Skill.findOne({ name: value });
@@ -34,6 +35,7 @@ exports.createSkill = async (req, res) => {
     await skill.save();
     res.status(200).send({
       message: 'Done',
+      skill: skill,
     });
   }
   return res;
