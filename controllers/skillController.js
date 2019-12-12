@@ -64,6 +64,7 @@ exports.deleteSkill = async (req, res) => {
     await skill.save();
     res.status(200).send({
       message: 'Done',
+      value: skill,
     });
   } else {
     res.status(500).send({
