@@ -2,7 +2,11 @@ const Skill = require('../models/skills');
 const User = require('../models/users');
 
 exports.getSkill = async (req, res) => {
-  const skill = await Skill.find({ isDeleted: false });
+  const { page } = req.params;
+  const pageSize = 25;
+  const skill = await Skill.find({ isDeleted: false })
+    .skip(page * pageSize)
+    .limit(pageSize);
   const user = await User.find({ isBlocked: false, type: 'Người dạy' });
   const s = {};
   skill.forEach((ele) => {

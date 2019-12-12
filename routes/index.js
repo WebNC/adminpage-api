@@ -19,7 +19,8 @@ router.get('/user-detail/:id', accountController.getUserDetail);
 router.get('/user/block/:id', accountController.blockUser);
 router.get('/user/unblock/:id', accountController.unblockUser);
 
-router.get('/skill-list/read', skillController.getSkill);
+router.get('/skill-list/read/:page', skillController.getSkill);
+router.get('/skill-list/number', skillController.getNumberSkill);
 router.post('/skill-list/create', skillController.createSkill);
 router.post('/skill-list/update', skillController.updateSkill);
 router.post('/skill-list/delete', skillController.deleteSkill);
