@@ -21,6 +21,7 @@ const ContractSchema = new Schema({
     value: { type: Number },
     isDeleted: { type: Boolean },
     createAt: { type: Date, default: Date.now() },
+    payDate: { type: Date },
 });
 
 module.exports = mongoose.model('Contract', ContractSchema);
