@@ -2,9 +2,9 @@ const User = require('../models/users');
 
 exports.getAllUserTeacher = async (req, res) => {
   const { page } = req.params;
-  const pageSize = 25;
+  const pageSize = 10;
   const list = await User.find({ type: 'Người dạy' })
-    .skip(page * pageSize)
+    .skip((page - 1) * pageSize)
     .limit(pageSize);
   return res.status(200).send({
     message: list,
@@ -19,9 +19,9 @@ exports.getNumberUserTeacher = async (req, res) => {
 
 exports.getAllUserStudent = async (req, res) => {
   const { page } = req.params;
-  const pageSize = 25;
+  const pageSize = 10;
   const list = await User.find({ type: 'Người học' })
-    .skip(page * pageSize)
+    .skip((page - 1) * pageSize)
     .limit(pageSize);
   return res.status(200).send({
     message: list,

@@ -2,9 +2,9 @@ const Contract = require('../models/contracts');
 
 exports.getContractList = async (req, res) => {
   const { page } = req.params;
-  const pageSize = 25;
+  const pageSize = 10;
   const list = await Contract.find({ isDeleted: false })
-    .skip(page * pageSize)
+    .skip((page - 1) * pageSize)
     .limit(pageSize);
   return res.status(200).send({
     message: list,

@@ -3,9 +3,6 @@ const passport = require('passport');
 const User = require('../models/admins');
 
 
-// var fs = require('fs');
-// var path = require ('path');
-
 exports.register = (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.status(400).send({

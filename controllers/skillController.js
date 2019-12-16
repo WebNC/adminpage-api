@@ -3,9 +3,9 @@ const User = require('../models/users');
 
 exports.getSkill = async (req, res) => {
   const { page } = req.params;
-  const pageSize = 25;
+  const pageSize = 10;
   const skill = await Skill.find({ isDeleted: false })
-    .skip(page * pageSize)
+    .skip((page - 1) * pageSize)
     .limit(pageSize);
   const user = await User.find({ isBlocked: false, type: 'Người dạy' });
   const s = {};
@@ -32,7 +32,7 @@ exports.getNumberSkill = async (req, res) => {
 };
 exports.createSkill = async (req, res) => {
   const { value } = req.body;
-  const result = await Skill.findOne({ name: value });
+  const result = await Skill.findOne({ name: value, isDeleted: false });
   if (result) {
     res.status(400).send({
       message: 'Skill đã tồn tại',

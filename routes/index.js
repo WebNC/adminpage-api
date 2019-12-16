@@ -4,6 +4,7 @@ const router = express.Router();
 const accountController = require('../controllers/accountController');
 const skillController = require('../controllers/skillController');
 const contractController = require('../controllers/contractController');
+const reportController = require('../controllers/reportController');
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', { title: 'Express' });
@@ -29,4 +30,7 @@ router.post('/skill-list/delete', skillController.deleteSkill);
 router.get('/contract-list/number', contractController.getNumContractList);
 router.get('/contract-list/:page', contractController.getContractList);
 
+router.get('/report-list/number', reportController.getNumContractList);
+router.get('/report-list/:page', reportController.getReportList);
+router.post('/report/solve-report', reportController.solveReport);
 module.exports = router;
