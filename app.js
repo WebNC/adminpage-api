@@ -8,6 +8,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const uploadRouter = require('./routes/upload');
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+app.use('/upload', uploadRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));

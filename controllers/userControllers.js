@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable indent */
 const passport = require('passport');
 const User = require('../models/admins');
@@ -74,4 +75,20 @@ exports.me = (req, res) => {
                 res.send(user);
             }
         });
+};
+exports.upload = (req, res) => {
+  const { id } = req.body;
+  User.findById(id)
+    .then((user) => {
+      if (!user) {
+        return res.sendStatus(400);
+      }
+      user.url = req.file.url;
+      user.save();
+      return res.send(user);
+    }).catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while update the User.',
+      });
+    });
 };
