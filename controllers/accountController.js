@@ -1,4 +1,8 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
 const User = require('../models/users');
+const Admin = require('../models/admins');
 
 exports.getAllUserTeacher = async (req, res) => {
   const { page } = req.params;
@@ -10,6 +14,7 @@ exports.getAllUserTeacher = async (req, res) => {
     message: list,
   });
 };
+
 exports.getNumberUserTeacher = async (req, res) => {
   const num = await User.countDocuments({ type: 'Người dạy' });
   return res.status(200).send({
@@ -27,6 +32,7 @@ exports.getAllUserStudent = async (req, res) => {
     message: list,
   });
 };
+
 exports.getNumberUserStudent = async (req, res) => {
   const num = await User.countDocuments({ type: 'Người học' });
   return res.status(200).send({
@@ -71,4 +77,45 @@ exports.unblockUser = async (req, res) => {
     });
   }
   return res;
+};
+
+
+exports.edit = async (req, res) => {
+  const { id } = req.body;
+  Admin.findOne({ _id: id })
+    .then(async (user) => {
+      if (!user) {
+        res.status(400).send({
+          message: 'No user',
+        });
+      } else {
+        user.username = req.body.username;
+        user.address = req.body.address;
+        user.age = req.body.age;
+        user.phone = req.body.phone;
+        await user.save();
+        res.status(200).send({
+          user,
+        });
+      }
+    });
+  return res;
+};
+
+exports.changePass = (req, res) => {
+  const { id } = req.body;
+  return Admin.findById(id)
+    .then((user) => {
+      if (!user) {
+        return res.sendStatus(400);
+      }
+      const passHash = user.setPassword(req.body.password);
+      user.passwordHash = passHash || user.passwordHash;
+      user.save();
+      return res.send(user);
+    }).catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while update the User.',
+      });
+    });
 };

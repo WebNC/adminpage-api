@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-param-reassign */
 /* eslint-disable indent */
 const passport = require('passport');
@@ -38,6 +39,7 @@ exports.register = (req, res) => {
         });
     return true;
 };
+
 exports.login = (req, res, next) => {
     if (!req.body.email) {
         return res.status(500).send({
@@ -65,6 +67,7 @@ exports.login = (req, res, next) => {
     })(req, res, next);
     return true;
 };
+
 exports.me = (req, res) => {
     const { id } = req.payload;
     return User.findById(id)
@@ -76,6 +79,8 @@ exports.me = (req, res) => {
             }
         });
 };
+
+
 exports.upload = (req, res) => {
   const { id } = req.body;
   User.findById(id)
@@ -91,4 +96,4 @@ exports.upload = (req, res) => {
         message: err.message || 'Some error occurred while update the User.',
       });
     });
-};
+  };

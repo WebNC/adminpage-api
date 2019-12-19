@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable func-names */
 /* eslint-disable indent */
 /* eslint-disable no-underscore-dangle */

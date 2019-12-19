@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const express = require('express');
 
 const router = express.Router();
@@ -9,6 +10,9 @@ const reportController = require('../controllers/reportController');
 router.get('/', (req, res) => {
   res.render('index', { title: 'Express' });
 });
+
+
+
 
 router.get('/user-list/teacher/number', accountController.getNumberUserTeacher);
 router.get('/user-list/teacher/:page', accountController.getAllUserTeacher);
@@ -33,4 +37,8 @@ router.get('/contract-list/:page', contractController.getContractList);
 router.get('/report-list/number', reportController.getNumContractList);
 router.get('/report-list/:page', reportController.getReportList);
 router.post('/report/solve-report', reportController.solveReport);
+
+router.post('/change-pass', accountController.changePass);
+router.post('/edit', accountController.edit);
+
 module.exports = router;
