@@ -82,6 +82,7 @@ exports.me = (req, res) => {
 
 
 exports.upload = (req, res) => {
+    console.log(req.body);
   const { id } = req.body;
   User.findById(id)
     .then((user) => {

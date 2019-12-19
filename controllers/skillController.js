@@ -24,6 +24,14 @@ exports.getSkill = async (req, res) => {
     number: s,
   });
 };
+
+exports.getAllSkill = async (req, res) => {
+  const skill = await Skill.find({ isDeleted: false });
+  return res.status(200).send({
+    skillList: skill,
+  });
+};
+
 exports.getNumberSkill = async (req, res) => {
   const num = await Skill.countDocuments({ isDeleted: false });
   return res.status(200).send({
