@@ -6,21 +6,19 @@ const Teacher = require('../models/users');
 const Skill = require('../models/skills');
 
 const compareIncome = (a, b) => {
-  return a.income < b.income;
+  return parseInt(a.income, 10) < parseInt(b.income, 10);
 };
 exports.getTopTeacherIncome = async (req, res) => {
-  const teacherList = await Teacher.find({ type: 'Nguời dạy' });
+  const teacherList = await Teacher.find({ type: 'Người dạy' });
   const contractList = await Contract.find({ status: 'Đã hoàn thành' });
   const teachers = teacherList.map((ele) => {
-    return { id: ele._id, name: ele.name, income: 0 };
+    return { id: ele._id, name: ele.username, income: 0 };
   });
   contractList.map((ele) => {
-    ele.skill.forEach((elem) => {
-      const index = teachers.findIndex((element) => {
-        return String(elem) === String(element.id);
-      });
-      teachers[index].income += ele.value;
+    const index = teachers.findIndex((element) => {
+      return String(ele.teacherID) === String(element.id);
     });
+    teachers[index].income += ele.value;
     return ele;
   });
   teachers.sort(compareIncome);

@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const Report = require('../models/reports');
 const User = require('../models/users');
+
 exports.getReportList = async (req, res) => {
   const { page } = req.params;
   const pageSize = 5;
