@@ -31,10 +31,17 @@ exports.getNumContractList = async (req, res) => {
   res.status(200).send({ message: num });
 };
 exports.solveReport = async (req, res) => {
-  const { id } = req.body;
+  const { id, type } = req.body;
   const report = await Report.findById(id);
   report.status = true;
   await report.save();
+  const contract = await Contract.findOne({ contractID: report.contractID });
+  if (type === true) {
+    contract.status = 'Đã hoàn tiền';
+  } else {
+    contract.status = 'Đã hoàn thành';
+  }
+  await contract.save();
   res.status(200).send({ message: 'Done' });
 };
 exports.getChat = async (req, res) => {
