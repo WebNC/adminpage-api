@@ -6,12 +6,12 @@ const accountController = require('../controllers/accountController');
 const skillController = require('../controllers/skillController');
 const contractController = require('../controllers/contractController');
 const reportController = require('../controllers/reportController');
+const chartController = require('../controllers/chartController');
+const topIncomeController = require('../controllers/topIncomeController');
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', { title: 'Express' });
 });
-
-
 
 
 router.get('/user-list/teacher/number', accountController.getNumberUserTeacher);
@@ -43,4 +43,9 @@ router.post('/report/solve-report', reportController.solveReport);
 router.post('/change-pass', accountController.changePass);
 router.post('/edit', accountController.edit);
 
+router.get('/chart/income-data/month', chartController.getIncomeData);
+
+
+router.get('/top-teacher-income-list/month', topIncomeController.getTopTeacherIncome);
+router.get('/top-skill-income-list/month', topIncomeController.getTopSkillIncome);
 module.exports = router;

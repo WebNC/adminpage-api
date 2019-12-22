@@ -9,6 +9,7 @@ const ContractSchema = new Schema({
     teacherID: { type: Schema.Types.ObjectId, require: true },
     fromDate: { type: Date },
     toDate: { type: Date },
+    address: { type: Object },
     hour: { type: Number },
     skill: { type: Array },
     // Đang chờ, Bị từ chối, Chấp nhận
@@ -16,10 +17,10 @@ const ContractSchema = new Schema({
     // Đã thanh toán, chưa thanh toán
     statusPay: { type: Boolean, default: false },
     rating: { type: Number, default: 5 },
-    // Array object {id,date,comment}
-    comment: { type: Array },
+    // Object {id,date,comment}
+    comment: { type: Object },
     value: { type: Number },
-    isDeleted: { type: Boolean },
+    isDeleted: { type: Boolean, default: false },
     createAt: { type: Date, default: Date.now() },
     payDate: { type: Date },
 });

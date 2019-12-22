@@ -1,16 +1,17 @@
 /* eslint-disable import/prefer-default-export */
 const Contract = require('../models/contracts');
 
-export const dataChart = async (req, res) => {
+exports.getIncomeData = async (req, res) => {
   const data = [];
   for (let i = 0; i < 12; i += 1) {
-    data.push({ month: `Tháng ${i}`, income: 0 });
+    data.push({ month: `Tháng ${i + 1}`, income: 0 });
   }
-  const contract = await Contract.find({ statusPay: true });
+  const date = new Date();
+  const contract = await Contract.find({ status: 'Đã hoàn thành' });
   contract.forEach((ele) => {
-    if (ele.payDate.getYear() === 2019) {
-      data[ele.payDate.getMonth] += ele.income;
+    if (ele.payDate.getYear() === date.getYear()) {
+      data[ele.payDate.getMonth()].income += (ele.value / 1000000);
     }
   });
-  res.status(200).send({ message: data });
+  res.status(200).send({ data });
 };
