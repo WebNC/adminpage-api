@@ -1,6 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 const Report = require('../models/reports');
 const User = require('../models/users');
+const Contract = require('../models/contracts');
+const Chat = require('../models/chats');
+const Skill = require('../models/skills');
 
 exports.getReportList = async (req, res) => {
   const { page } = req.params;
@@ -33,4 +36,25 @@ exports.solveReport = async (req, res) => {
   report.status = true;
   await report.save();
   res.status(200).send({ message: 'Done' });
+};
+exports.getChat = async (req, res) => {
+  const result = await Chat.find({ studentID: req.body.studentID, teacherID: req.body.teacherID });
+  const teacherInfo = await User.findById(req.body.teacherID);
+  const studentInfo = await User.findById(req.body.studentID);
+  const contracts = await Contract.findOne({
+    teacherID: req.body.teacherID,
+    studentID: req.body.studentID,
+  });
+  const skills = await Skill.find();
+  const contractList = contracts.skill.map((ele) => {
+    const elem = skills.find((element) => String(element._id) === String(ele));
+    return elem;
+  });
+  contracts.skill = contractList;
+  return res.status(200).send({
+    chat: result[0],
+    teacher: teacherInfo,
+    student: studentInfo,
+    contract: contracts,
+  });
 };
