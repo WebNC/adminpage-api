@@ -31,6 +31,7 @@ exports.getNumContractList = async (req, res) => {
   res.status(200).send({ message: num });
 };
 exports.solveReport = async (req, res) => {
+  console.log(req.body)
   const { id, type } = req.body;
   const report = await Report.findById(id);
   report.status = true;
@@ -48,10 +49,7 @@ exports.getChat = async (req, res) => {
   const result = await Chat.find({ studentID: req.body.studentID, teacherID: req.body.teacherID });
   const teacherInfo = await User.findById(req.body.teacherID);
   const studentInfo = await User.findById(req.body.studentID);
-  const contracts = await Contract.findOne({
-    teacherID: req.body.teacherID,
-    studentID: req.body.studentID,
-  });
+  const contracts = await Contract.findById(req.body.contractID);
   const skills = await Skill.find();
   const contractList = contracts.skill.map((ele) => {
     const elem = skills.find((element) => String(element._id) === String(ele));
