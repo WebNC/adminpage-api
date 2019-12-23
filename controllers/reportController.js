@@ -31,7 +31,6 @@ exports.getNumContractList = async (req, res) => {
   res.status(200).send({ message: num });
 };
 exports.solveReport = async (req, res) => {
-  console.log(req.body)
   const { id, type } = req.body;
   const report = await Report.findById(id);
   report.status = true;
