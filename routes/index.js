@@ -40,6 +40,7 @@ router.get('/contract-list/:page', contractController.getContractList);
 router.get('/report-list/number', reportController.getNumContractList);
 router.get('/report-list/:page', reportController.getReportList);
 router.post('/report/solve-report', reportController.solveReport);
+router.post('/report/detail', reportController.getChat);
 
 router.post('/change-pass', accountController.changePass);
 router.post('/edit', accountController.edit);
