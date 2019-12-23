@@ -5,12 +5,16 @@ const Contract = require('../models/contracts');
 const Teacher = require('../models/users');
 const Skill = require('../models/skills');
 
+
 const compareIncome = (a, b) => {
   return parseInt(a.income, 10) < parseInt(b.income, 10);
 };
+
 exports.getTopTeacherIncome = async (req, res) => {
   const teacherList = await Teacher.find({ type: 'Người dạy' });
-  const contractList = await Contract.find({ status: 'Đã hoàn thành' });
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
   const teachers = teacherList.map((ele) => {
     return { id: ele._id, name: ele.username, income: 0 };
   });
@@ -27,10 +31,89 @@ exports.getTopTeacherIncome = async (req, res) => {
     message: data,
   });
 };
+exports.getTopTeacherIncomeDay = async (req, res) => {
+  const { date } = req.body;
+  const day = new Date(date);
+  const nextDay = new Date(day.getTime() + 86400000);
+  const teacherList = await Teacher.find({ type: 'Người dạy' });
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
+  const teachers = teacherList.map((ele) => {
+    return { id: ele._id, name: ele.username, income: 0 };
+  });
+  contractList.map((ele) => {
+    if (ele.payDate >= day && ele.payDate <= nextDay) {
+      const index = teachers.findIndex((element) => {
+        return String(ele.teacherID) === String(element.id);
+      });
+      teachers[index].income += ele.value;
+    }
+    return ele;
+  });
+  teachers.sort(compareIncome);
+  const data = teachers.slice(0, 10);
+  return res.status(200).send({
+    message: data,
+  });
+};
+exports.getTopTeacherIncomeRange = async (req, res) => {
+  const { date } = req.body;
+  const fromDay = new Date(date[0]);
+  const toDay = new Date(date[1]);
+  const teacherList = await Teacher.find({ type: 'Người dạy' });
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
+  const teachers = teacherList.map((ele) => {
+    return { id: ele._id, name: ele.username, income: 0 };
+  });
+  contractList.map((ele) => {
+    if (ele.payDate >= fromDay && ele.payDate <= toDay) {
+      const index = teachers.findIndex((element) => {
+        return String(ele.teacherID) === String(element.id);
+      });
+      teachers[index].income += ele.value;
+    }
+    return ele;
+  });
+  teachers.sort(compareIncome);
+  const data = teachers.slice(0, 10);
+  return res.status(200).send({
+    message: data,
+  });
+};
+exports.getTopTeacherIncomeMonth = async (req, res) => {
+  const { date } = req.body;
+  const day = new Date(date);
+  const teacherList = await Teacher.find({ type: 'Người dạy' });
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
+  const teachers = teacherList.map((ele) => {
+    return { id: ele._id, name: ele.username, income: 0 };
+  });
+  contractList.map((ele) => {
+    if (ele.payDate.getMonth() === day.getMonth() && ele.payDate.getFullYear() === day.getFullYear()) {
+      const index = teachers.findIndex((element) => {
+        return String(ele.teacherID) === String(element.id);
+      });
+      teachers[index].income += ele.value;
+    }
+    return ele;
+  });
+  teachers.sort(compareIncome);
+  const data = teachers.slice(0, 10);
+  return res.status(200).send({
+    message: data,
+  });
+};
 
 exports.getTopSkillIncome = async (req, res) => {
   const skillList = await Skill.find();
-  const contractList = await Contract.find({ status: 'Đã hoàn thành' });
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
   const skills = skillList.map((ele) => {
     return { id: ele._id, name: ele.name, income: 0 };
   });
@@ -41,6 +124,89 @@ exports.getTopSkillIncome = async (req, res) => {
       });
       skills[index].income += ele.value;
     });
+    return ele;
+  });
+  skills.sort(compareIncome);
+  const data = skills.slice(0, 10);
+  return res.status(200).send({
+    message: data,
+  });
+};
+exports.getTopSkillIncomeDay = async (req, res) => {
+  const { date } = req.body;
+  const day = new Date(date);
+  const nextDay = new Date(day.getTime() + 86400000);
+  const skillList = await Skill.find();
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
+  const skills = skillList.map((ele) => {
+    return { id: ele._id, name: ele.name, income: 0 };
+  });
+  contractList.map((ele) => {
+    if (ele.payDate >= day && ele.payDate <= nextDay) {
+      ele.skill.forEach((elem) => {
+        const index = skills.findIndex((element) => {
+          return String(elem) === String(element.id);
+        });
+        skills[index].income += ele.value;
+      });
+    }
+    return ele;
+  });
+  skills.sort(compareIncome);
+  const data = skills.slice(0, 10);
+  return res.status(200).send({
+    message: data,
+  });
+};
+exports.getTopSkillIncomeMonth = async (req, res) => {
+  const { date } = req.body;
+  const day = new Date(date);
+  const skillList = await Skill.find();
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
+  const skills = skillList.map((ele) => {
+    return { id: ele._id, name: ele.name, income: 0 };
+  });
+  contractList.map((ele) => {
+    if (ele.payDate.getMonth() === day.getMonth() && ele.payDate.getFullYear() === day.getFullYear()) {
+      ele.skill.forEach((elem) => {
+        const index = skills.findIndex((element) => {
+          return String(elem) === String(element.id);
+        });
+        skills[index].income += ele.value;
+      });
+    }
+    return ele;
+  });
+  skills.sort(compareIncome);
+  const data = skills.slice(0, 10);
+  return res.status(200).send({
+    message: data,
+  });
+};
+exports.getTopSkillIncomeRange = async (req, res) => {
+  const { date } = req.body;
+  const fromDay = new Date(date[0]);
+  const toDay = new Date(date[1]);
+  const skillList = await Skill.find();
+  const contractList = await Contract.find({
+    $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
+  });
+  const skills = skillList.map((ele) => {
+    return { id: ele._id, name: ele.name, income: 0 };
+  });
+  contractList.map((ele) => {
+    if (ele.payDate >= fromDay && ele.payDate <= toDay) {
+      ele.skill.forEach((elem) => {
+        const index = skills.findIndex((element) => {
+          return String(elem) === String(element.id);
+        });
+        skills[index].income += ele.value;
+      });
+    }
     return ele;
   });
   skills.sort(compareIncome);

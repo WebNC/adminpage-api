@@ -47,6 +47,13 @@ router.post('/edit', accountController.edit);
 router.get('/chart/income-data/month', chartController.getIncomeData);
 
 
-router.get('/top-teacher-income-list/month', topIncomeController.getTopTeacherIncome);
-router.get('/top-skill-income-list/month', topIncomeController.getTopSkillIncome);
+router.get('/top-teacher-income-list/all', topIncomeController.getTopTeacherIncome);
+router.post('/top-teacher-income-list/date', topIncomeController.getTopTeacherIncomeDay);
+router.post('/top-teacher-income-list/month', topIncomeController.getTopTeacherIncomeMonth);
+router.post('/top-teacher-income-list/range', topIncomeController.getTopTeacherIncomeRange);
+
+router.get('/top-skill-income-list/all', topIncomeController.getTopSkillIncome);
+router.post('/top-skill-income-list/date', topIncomeController.getTopSkillIncomeDay);
+router.post('/top-skill-income-list/month', topIncomeController.getTopSkillIncomeMonth);
+router.post('/top-skill-income-list/range', topIncomeController.getTopSkillIncomeRange);
 module.exports = router;
