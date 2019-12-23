@@ -46,8 +46,8 @@ router.post('/change-pass', accountController.changePass);
 router.post('/edit', accountController.edit);
 
 router.get('/chart/income-data/year', chartController.getIncomeData);
-router.get('/chart/income-data/month', chartController.getIncomeDataMonth);
-router.get('/chart/income-data/range', chartController.getIncomeDataRange);
+router.post('/chart/income-data/month', chartController.getIncomeDataMonth);
+router.post('/chart/income-data/range', chartController.getIncomeDataRange);
 
 
 router.get('/top-teacher-income-list/all', topIncomeController.getTopTeacherIncome);

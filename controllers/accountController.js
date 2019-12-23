@@ -1,17 +1,28 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable indent */
 /* eslint-disable linebreak-style */
 const User = require('../models/users');
 const Admin = require('../models/admins');
+const Skill = require('../models/skills');
 
 exports.getAllUserTeacher = async (req, res) => {
   const { page } = req.params;
   const pageSize = 10;
-  const list = await User.find({ type: 'Người dạy' })
+  const teachers = await User.find({ type: 'Người dạy' })
     .skip((page - 1) * pageSize)
     .limit(pageSize);
+  const skillL = await Skill.find();
+  const teacherList = teachers.map((eleme) => {
+    const skills = eleme.skill.map((element) => {
+      const ele = skillL.find((elem) => String(elem._id) === String(element));
+      return { id: ele._id, name: ele.name };
+    });
+    eleme.skill = skills;
+    return eleme;
+  });
   return res.status(200).send({
-    message: list,
+    message: teacherList,
   });
 };
 
