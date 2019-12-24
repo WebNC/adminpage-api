@@ -61,6 +61,7 @@ exports.getTopTeacherIncomeRange = async (req, res) => {
   const { date } = req.body;
   const fromDay = new Date(date[0]);
   const toDay = new Date(date[1]);
+  const toNextDay = new Date(toDay.getTime() + 86400000);
   const teacherList = await Teacher.find({ type: 'Người dạy' });
   const contractList = await Contract.find({
     $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
@@ -69,7 +70,7 @@ exports.getTopTeacherIncomeRange = async (req, res) => {
     return { id: ele._id, name: ele.username, income: 0 };
   });
   contractList.map((ele) => {
-    if (ele.payDate >= fromDay && ele.payDate <= toDay) {
+    if (ele.payDate >= fromDay && ele.payDate <= toNextDay) {
       const index = teachers.findIndex((element) => {
         return String(ele.teacherID) === String(element.id);
       });
@@ -191,6 +192,7 @@ exports.getTopSkillIncomeRange = async (req, res) => {
   const { date } = req.body;
   const fromDay = new Date(date[0]);
   const toDay = new Date(date[1]);
+  const toNextDay = new Date(toDay.getTime() + 86400000);
   const skillList = await Skill.find();
   const contractList = await Contract.find({
     $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
@@ -199,7 +201,7 @@ exports.getTopSkillIncomeRange = async (req, res) => {
     return { id: ele._id, name: ele.name, income: 0 };
   });
   contractList.map((ele) => {
-    if (ele.payDate >= fromDay && ele.payDate <= toDay) {
+    if (ele.payDate >= fromDay && ele.payDate <= toNextDay) {
       ele.skill.forEach((elem) => {
         const index = skills.findIndex((element) => {
           return String(elem) === String(element.id);
