@@ -27,7 +27,7 @@ exports.getTopTeacherIncome = async (req, res) => {
     return ele;
   });
   teachers.sort(compareIncome);
-  console.log(teachers)
+  console.log(teachers);
 
   const data = teachers.slice(0, 10);
   return res.status(200).send({
@@ -133,10 +133,10 @@ exports.getTopSkillIncome = async (req, res) => {
   skills.sort(compareIncome);
   const data = skills.slice(skills.length - 10, skills.length);
   const result = [];
-  for (let i = 0; i< 10 ; i++){
-    result.push(data[10-i-1])
+  for (let i = 0; i < 10; i += 1) {
+    result.push(data[10 - i - 1]);
   }
-   console.log(result);
+  // console.log(result);
 
   return res.status(200).send({
     // message: data,
@@ -167,9 +167,13 @@ exports.getTopSkillIncomeDay = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
-  const data = skills.slice(0, 10);
+  const data = skills.slice(skills.length - 10, skills.length);
+  const result = [];
+  for (let i = 0; i < 10; i += 1) {
+    result.push(data[10 - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
   });
 };
 exports.getTopSkillIncomeMonth = async (req, res) => {
@@ -194,9 +198,14 @@ exports.getTopSkillIncomeMonth = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
-  const data = skills.slice(0, 10);
+
+  const data = skills.slice(skills.length - 10, skills.length);
+  const result = [];
+  for (let i = 0; i < 10; i += 1) {
+    result.push(data[10 - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
   });
 };
 exports.getTopSkillIncomeRange = async (req, res) => {
@@ -223,8 +232,12 @@ exports.getTopSkillIncomeRange = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
-  const data = skills.slice(0, 10);
+  const data = skills.slice(skills.length - 10, skills.length);
+  const result = [];
+  for (let i = 0; i < 10; i += 1) {
+    result.push(data[10 - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
   });
 };
