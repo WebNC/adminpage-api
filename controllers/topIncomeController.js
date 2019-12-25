@@ -27,11 +27,20 @@ exports.getTopTeacherIncome = async (req, res) => {
     return ele;
   });
   teachers.sort(compareIncome);
-  console.log(teachers);
+  let data = [];
+  let result = [];
+  if(teachers.length < 10){
+    data = teachers.slice(0, teachers.length);
+  } else {
+    data = teachers.slice(teachers.length - 10, teachers.length);
+  }
 
-  const data = teachers.slice(0, 10);
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
+
   });
 };
 exports.getTopTeacherIncomeDay = async (req, res) => {
@@ -55,9 +64,20 @@ exports.getTopTeacherIncomeDay = async (req, res) => {
     return ele;
   });
   teachers.sort(compareIncome);
-  const data = teachers.slice(0, 10);
+  let data = [];
+  let result = [];
+  if(teachers.length < 10){
+    data = teachers.slice(0, teachers.length);
+  } else {
+    data = teachers.slice(teachers.length - 10, teachers.length);
+  }
+
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
+
   });
 };
 exports.getTopTeacherIncomeRange = async (req, res) => {
@@ -82,9 +102,20 @@ exports.getTopTeacherIncomeRange = async (req, res) => {
     return ele;
   });
   teachers.sort(compareIncome);
-  const data = teachers.slice(0, 10);
+  let data = [];
+  let result = [];
+  if(teachers.length < 10){
+    data = teachers.slice(0, teachers.length);
+  } else {
+    data = teachers.slice(teachers.length - 10, teachers.length);
+  }
+
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
+
   });
 };
 exports.getTopTeacherIncomeMonth = async (req, res) => {
@@ -107,9 +138,20 @@ exports.getTopTeacherIncomeMonth = async (req, res) => {
     return ele;
   });
   teachers.sort(compareIncome);
-  const data = teachers.slice(0, 10);
+  let data = [];
+  let result = [];
+  if(teachers.length < 10){
+    data = teachers.slice(0, teachers.length);
+  } else {
+    data = teachers.slice(teachers.length - 10, teachers.length);
+  }
+
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
+  }
   return res.status(200).send({
-    message: data,
+    message: result,
+
   });
 };
 
@@ -131,15 +173,19 @@ exports.getTopSkillIncome = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
-  const data = skills.slice(skills.length - 10, skills.length);
-  const result = [];
-  for (let i = 0; i < 10; i += 1) {
-    result.push(data[10 - i - 1]);
-  }
-  // console.log(result);
 
+  let data = [];
+  let result = [];
+  if(skills.length < 10){
+    data = skills.slice(0, skills.length);
+  } else {
+    data = skills.slice(skills.length - 10, skills.length);
+  }
+
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
+  }
   return res.status(200).send({
-    // message: data,
     message: result,
 
   });
@@ -167,13 +213,20 @@ exports.getTopSkillIncomeDay = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
-  const data = skills.slice(skills.length - 10, skills.length);
-  const result = [];
-  for (let i = 0; i < 10; i += 1) {
-    result.push(data[10 - i - 1]);
+  let data = [];
+  let result = [];
+  if(skills.length < 10){
+    data = skills.slice(0, skills.length);
+  } else {
+    data = skills.slice(skills.length - 10, skills.length);
+  }
+
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
   }
   return res.status(200).send({
     message: result,
+
   });
 };
 exports.getTopSkillIncomeMonth = async (req, res) => {
@@ -198,14 +251,20 @@ exports.getTopSkillIncomeMonth = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
+  let data = [];
+  let result = [];
+  if(skills.length < 10){
+    data = skills.slice(0, skills.length);
+  } else {
+    data = skills.slice(skills.length - 10, skills.length);
+  }
 
-  const data = skills.slice(skills.length - 10, skills.length);
-  const result = [];
-  for (let i = 0; i < 10; i += 1) {
-    result.push(data[10 - i - 1]);
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
   }
   return res.status(200).send({
     message: result,
+
   });
 };
 exports.getTopSkillIncomeRange = async (req, res) => {
@@ -232,12 +291,19 @@ exports.getTopSkillIncomeRange = async (req, res) => {
     return ele;
   });
   skills.sort(compareIncome);
-  const data = skills.slice(skills.length - 10, skills.length);
-  const result = [];
-  for (let i = 0; i < 10; i += 1) {
-    result.push(data[10 - i - 1]);
+  let data = [];
+  let result = [];
+  if(skills.length < 10){
+    data = skills.slice(0, skills.length);
+  } else {
+    data = skills.slice(skills.length - 10, skills.length);
+  }
+
+  for (let i = 0; i < data.length; i += 1) {
+    result.push(data[data.length - i - 1]);
   }
   return res.status(200).send({
     message: result,
+
   });
 };
