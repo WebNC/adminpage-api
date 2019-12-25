@@ -34,7 +34,7 @@ router.post('/skill-list/delete', skillController.deleteSkill);
 
 
 router.get('/contract-list/number', contractController.getNumContractList);
-router.get('/contract-list/:page', contractController.getContractList);
+router.post('/contract-list/list', contractController.getContractList);
 
 
 router.get('/report-list/number', reportController.getNumContractList);
