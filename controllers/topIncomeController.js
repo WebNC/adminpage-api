@@ -29,7 +29,7 @@ exports.getTopTeacherIncome = async (req, res) => {
   teachers.sort(compareIncome);
   let data = [];
   let result = [];
-  if(teachers.length < 10){
+  if (teachers.length < 10) {
     data = teachers.slice(0, teachers.length);
   } else {
     data = teachers.slice(teachers.length - 10, teachers.length);
@@ -66,7 +66,7 @@ exports.getTopTeacherIncomeDay = async (req, res) => {
   teachers.sort(compareIncome);
   let data = [];
   let result = [];
-  if(teachers.length < 10){
+  if (teachers.length < 10) {
     data = teachers.slice(0, teachers.length);
   } else {
     data = teachers.slice(teachers.length - 10, teachers.length);
@@ -104,7 +104,7 @@ exports.getTopTeacherIncomeRange = async (req, res) => {
   teachers.sort(compareIncome);
   let data = [];
   let result = [];
-  if(teachers.length < 10){
+  if (teachers.length < 10) {
     data = teachers.slice(0, teachers.length);
   } else {
     data = teachers.slice(teachers.length - 10, teachers.length);
@@ -140,7 +140,7 @@ exports.getTopTeacherIncomeMonth = async (req, res) => {
   teachers.sort(compareIncome);
   let data = [];
   let result = [];
-  if(teachers.length < 10){
+  if (teachers.length < 10) {
     data = teachers.slice(0, teachers.length);
   } else {
     data = teachers.slice(teachers.length - 10, teachers.length);
@@ -160,6 +160,7 @@ exports.getTopSkillIncome = async (req, res) => {
   const contractList = await Contract.find({
     $or: [{ status: 'Đã hoàn thành' }, { status: 'Đang giải quyết' }],
   });
+  console.log(contractList.length)
   const skills = skillList.map((ele) => {
     return { id: ele._id, name: ele.name, income: 0 };
   });
@@ -172,11 +173,12 @@ exports.getTopSkillIncome = async (req, res) => {
     });
     return ele;
   });
+  console.log(skills);
   skills.sort(compareIncome);
 
   let data = [];
   let result = [];
-  if(skills.length < 10){
+  if (skills.length < 10) {
     data = skills.slice(0, skills.length);
   } else {
     data = skills.slice(skills.length - 10, skills.length);
@@ -187,7 +189,6 @@ exports.getTopSkillIncome = async (req, res) => {
   }
   return res.status(200).send({
     message: result,
-
   });
 };
 exports.getTopSkillIncomeDay = async (req, res) => {
@@ -215,7 +216,7 @@ exports.getTopSkillIncomeDay = async (req, res) => {
   skills.sort(compareIncome);
   let data = [];
   let result = [];
-  if(skills.length < 10){
+  if (skills.length < 10) {
     data = skills.slice(0, skills.length);
   } else {
     data = skills.slice(skills.length - 10, skills.length);
@@ -253,7 +254,7 @@ exports.getTopSkillIncomeMonth = async (req, res) => {
   skills.sort(compareIncome);
   let data = [];
   let result = [];
-  if(skills.length < 10){
+  if (skills.length < 10) {
     data = skills.slice(0, skills.length);
   } else {
     data = skills.slice(skills.length - 10, skills.length);
@@ -293,7 +294,7 @@ exports.getTopSkillIncomeRange = async (req, res) => {
   skills.sort(compareIncome);
   let data = [];
   let result = [];
-  if(skills.length < 10){
+  if (skills.length < 10) {
     data = skills.slice(0, skills.length);
   } else {
     data = skills.slice(skills.length - 10, skills.length);
