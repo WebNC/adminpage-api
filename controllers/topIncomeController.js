@@ -8,7 +8,14 @@ const Skill = require('../models/skills');
 
 
 const compareIncome = (a, b) => {
-  return parseInt(a.income, 10) > parseInt(b.income, 10);
+  if (a.income > b.income) {
+    return 1;
+  }
+  if (a.income < b.income) {
+    return -1;
+  }
+  return 0;
+  // return parseInt(a.income, 10) > parseInt(b.income, 10);
 };
 
 exports.getTopTeacherIncome = async (req, res) => {
