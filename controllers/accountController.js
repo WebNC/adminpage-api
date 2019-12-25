@@ -8,7 +8,7 @@ const Skill = require('../models/skills');
 
 exports.getAllUserTeacher = async (req, res) => {
   const { page } = req.params;
-  const pageSize = 10;
+  const pageSize = 7;
   const teachers = await User.find({ type: 'Người dạy' })
     .skip((page - 1) * pageSize)
     .limit(pageSize);
@@ -35,7 +35,7 @@ exports.getNumberUserTeacher = async (req, res) => {
 
 exports.getAllUserStudent = async (req, res) => {
   const { page } = req.params;
-  const pageSize = 10;
+  const pageSize = 7;
   const list = await User.find({ type: 'Người học' })
     .skip((page - 1) * pageSize)
     .limit(pageSize);
