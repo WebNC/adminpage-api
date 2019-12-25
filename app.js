@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 const createError = require('http-errors');
 const express = require('express');
